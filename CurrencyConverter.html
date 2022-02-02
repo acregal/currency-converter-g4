@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <!-- Add some CSS to change client UI -->
+    <style>
+    body {
+        background-color: #232F3E;
+        }
+    label, button {
+        color: #FF9900;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 40px;
+        }
+     input {
+        color: #232F3E;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 20px;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+    <form>
+        <label>Convert :</label>
+        <input type="number" placeholder="Amount" id="fromAmount" class="textbox" maxlength="20" size="10">
+        <label for="fromCurrency">From :</label>
+			<select id="fromCurrency" name="FromCurrency">
+				<option value="USD">US Dollar</option>
+				<option value="EUR">Euro</option>
+				<option value="JPY">Japanese Yen</option>
+				<option value="GBP">Pound Sterling</option>
+				<option value="AUD">Australian Dollar</option>
+				<option value="CAD">Canadian Dollar</option>
+				<option value="CHF">Swiss Franc</option>
+				<option value="CNY">Renminbi</option>
+				<option value="HKD">Hong Kong Dollar</option>
+				<option value="NZD">New Zealand Dollar</option>
+			</select>
+        <label for="toCurrency">To :</label>
+			<select id="toCurrency" name="ToCurrency">
+				<option value="USD">US Dollar</option>
+				<option value="EUR">Euro</option>
+				<option value="JPY">Japanese Yen</option>
+				<option value="GBP">Pound Sterling</option>
+				<option value="AUD">Australian Dollar</option>
+				<option value="CAD">Canadian Dollar</option>
+				<option value="CHF">Swiss Franc</option>
+				<option value="CNY">Renminbi</option>
+				<option value="HKD">Hong Kong Dollar</option>
+				<option value="NZD">New Zealand Dollar</option>
+			</select>
+		<label>Amount in new Currency: </label>
+		<input type="number" contenteditable="false" placeholder="Converted Amount" id="toAmount" class="textbox" maxlength="20" size="10">
+		<br></br>
+
+        <!-- Need to enable the button here -->
+        <button type="button" >Submit Data</button>
+		<button type="reset"> Clear Fields</button>
+    </form>
+</body>
+</html>
