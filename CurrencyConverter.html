@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <!-- Add some CSS to change client UI -->
+    <style>
+    body {
+        background-color: #232F3E;
+        }
+    label, button {
+        color: #FF9900;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 40px;
+        }
+     input, select {
+        color: #232F3E;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 20px;
+        }
+    </style>
+    <script>
+        // define the callAPI function that takes a first name and last name as parameters
+        var callAPI = (sourceCurrency,targetCurrency,sourceAmount)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"sourceCurrency":sourceCurrency,"targetCurrency":targetCurrency,"sourceAmount":sourceAmount});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://qw5jb2b2e1.execute-api.ap-northeast-1.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => appendData(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+		
+		function appendData(result) {
+            var mainContainer = document.getElementById("conversionTable");
+            var div = document.createElement("div");
+            div.innerHTML ="Amount in new Currency: " + result;
+            mainContainer.appendChild(div);
+        }
+		
+    </script>
+</head>
+<body>
+	<div>
+    <form>
+        <label>Convert :</label>
+        <input type="number" placeholder="Amount" id="fromAmount" class="textbox" maxlength="20" size="10">
+        <label for="fromCurrency">From :</label>
+			<select id="fromCurrency" name="FromCurrency">
+				<option value="USD">US Dollar</option>
+				<option value="EUR">Euro</option>
+				<option value="JPY">Japanese Yen</option>
+				<option value="GBP">Pound Sterling</option>
+				<option value="AUD">Australian Dollar</option>
+				<option value="CAD">Canadian Dollar</option>
+				<option value="CHF">Swiss Franc</option>
+				<option value="CNY">Renminbi</option>
+				<option value="HKD">Hong Kong Dollar</option>
+				<option value="NZD">New Zealand Dollar</option>
+			</select>
+        <label for="toCurrency">To :</label>
+			<select id="toCurrency" name="ToCurrency">
+				<option value="USD">US Dollar</option>
+				<option value="EUR">Euro</option>
+				<option value="JPY">Japanese Yen</option>
+				<option value="GBP">Pound Sterling</option>
+				<option value="AUD">Australian Dollar</option>
+				<option value="CAD">Canadian Dollar</option>
+				<option value="CHF">Swiss Franc</option>
+				<option value="CNY">Renminbi</option>
+				<option value="HKD">Hong Kong Dollar</option>
+				<option value="NZD">New Zealand Dollar</option>
+			</select>
+		<br></br>
+
+        <!-- Need to enable the button here -->
+        <button type="button" onclick="callAPI(document.getElementById('fromCurrency').value,document.getElementById('toCurrency').value,document.getElementById('fromAmount').value)">Submit Data</button>
+		<button type="reset"> Clear Fields</button>
+    </form>
+		<br></br>
+		<!-- <label>Amount in new Currency: </label>
+		<input type="number" contenteditable="false" placeholder="Converted Amount" id="toAmount" class="textbox" maxlength="20" size="10"> -->
+	<div id="conversionTable">
+	</div>
+</body>
+</html>
