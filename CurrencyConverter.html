@@ -1,67 +1,136 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Currency Converter</title>
+  <meta charset="utf-8">
+  <title>Currency Exchange</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='exchange-favicon.png') }}">
     <!-- Add some CSS to change client UI -->
-    <style>
+  <style>
+    .header {
+      padding: 15px;
+      background: #232F3E;
+      color: white;
+      border-bottom: 3px solid #FF9900;
+    }
+    h1{
+      font-size: 40px;
+      font-family: Georgia;
+      text-align: center;
+      color: white;
+    }
+    .date-time {
+      padding: 10px;
+      text-align: center;
+      color: black;
+    }
+
     body {
-        background-color: #232F3E;
-        }
+        background-color: #ffffff;
+    }
+    .column {
+      float: left;
+      width: 50%;
+      padding: 10px;
+      height: 500px;
+    }
+    .main:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
     label, button {
         color: #FF9900;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 20px;
-        margin-left: 40px;
-        }
-     input {
-        color: #232F3E;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 20px;
-        margin-left: 20px;
-        }
+        padding: 10px;
+    }
+
+    input, select {
+      color: #232F3E;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      padding: 10px;
+    }
+
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
     </style>
-    <script>
-
-    </script>
 </head>
-<body>
-    <form>
-        <label>Convert :</label>
-        <input type="number" placeholder="Amount" id="fromAmount" class="textbox" maxlength="20" size="10">
-        <label for="fromCurrency">From :</label>
-			<select id="fromCurrency" name="FromCurrency">
-				<option value="USD">US Dollar</option>
-				<option value="EUR">Euro</option>
-				<option value="JPY">Japanese Yen</option>
-				<option value="GBP">Pound Sterling</option>
-				<option value="AUD">Australian Dollar</option>
-				<option value="CAD">Canadian Dollar</option>
-				<option value="CHF">Swiss Franc</option>
-				<option value="CNY">Renminbi</option>
-				<option value="HKD">Hong Kong Dollar</option>
-				<option value="NZD">New Zealand Dollar</option>
-			</select>
-        <label for="toCurrency">To :</label>
-			<select id="toCurrency" name="ToCurrency">
-				<option value="USD">US Dollar</option>
-				<option value="EUR">Euro</option>
-				<option value="JPY">Japanese Yen</option>
-				<option value="GBP">Pound Sterling</option>
-				<option value="AUD">Australian Dollar</option>
-				<option value="CAD">Canadian Dollar</option>
-				<option value="CHF">Swiss Franc</option>
-				<option value="CNY">Renminbi</option>
-				<option value="HKD">Hong Kong Dollar</option>
-				<option value="NZD">New Zealand Dollar</option>
-			</select>
-		<label>Amount in new Currency: </label>
-		<input type="number" contenteditable="false" placeholder="Converted Amount" id="toAmount" class="textbox" maxlength="20" size="10">
-		<br></br>
 
-        <!-- Need to enable the button here -->
-        <button type="button" >Submit Data</button>
-		<button type="reset"> Clear Fields</button>
-    </form>
+
+<body>
+  <div class="header">
+    <h1> Currency Exchange System </h1>
+  </div>
+
+  <div class="date-time">
+    {{date.strftime("%A, %B %d, %Y at %H:%M ") }}
+  </div>
+
+  <div class="main" style="padding-top: 40px;">
+    <div class="column">
+      <div class="input" style="padding-left: 100px; padding-top: 75px;">
+        <form>
+        <label for="fromCurrency">Currency from:</label>
+
+  			<select id="fromCurrency" name="FromCurrency">
+  				<option value="USD">US Dollar</option>
+  				<option value="EUR">Euro</option>
+  				<option value="JPY">Japanese Yen</option>
+  				<option value="GBP">Pound Sterling</option>
+  				<option value="AUD">Australian Dollar</option>
+  				<option value="CAD">Canadian Dollar</option>
+  				<option value="CHF">Swiss Franc</option>
+  				<option value="CNY">Renminbi</option>
+  				<option value="HKD">Hong Kong Dollar</option>
+  				<option value="NZD">New Zealand Dollar</option>
+  			</select>
+
+      <!--  <label>Amount from:</label> -->
+        <input type="number" placeholder="Amount" id="fromAmount" >
+
+        <br><br>
+
+        <label for="toCurrency">Currency to:</label>
+
+  			<select id="toCurrency" name="ToCurrency">
+  				<option value="USD">US Dollar</option>
+  				<option value="EUR">Euro</option>
+  				<option value="JPY">Japanese Yen</option>
+  				<option value="GBP">Pound Sterling</option>
+  				<option value="AUD">Australian Dollar</option>
+  				<option value="CAD">Canadian Dollar</option>
+  				<option value="CHF">Swiss Franc</option>
+  				<option value="CNY">Renminbi</option>
+  				<option value="HKD">Hong Kong Dollar</option>
+  				<option value="NZD">New Zealand Dollar</option>
+  			</select>
+
+    	<!--	<label>Amount to: </label> -->
+    		<input type="number" placeholder="Converted Amount" id="toAmount" readonly>
+
+    		<br><br>
+
+        <div style="text-align: center; padding: 10px;">
+            <!-- Need to enable the button here -->
+        <button type="button">Convert</button>
+    	  <button type="reset">Clear</button>
+      </div>
+        </form>
+    </div>
+  </div>
+
+  <div class="column" style="border: 1px solid black;">
+      <h2 style="text-align: center;"> Exchange Rates Imagery? <h2>
+  </div>
 </body>
 </html>
