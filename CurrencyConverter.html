@@ -16,6 +16,7 @@
       color: white;
       border-bottom: 3px solid #FF9900;
     }
+
     h1{
       font-size: 40px;
       font-family: Georgia;
@@ -29,13 +30,13 @@
     }
 
     body {
-        background-color: #ffffff;
+      background-color: #ffffff;
     }
+
     .column {
       float: left;
       width: 50%;
       padding: 10px;
-      height: 500px;
     }
     .main:after {
       content: "";
@@ -43,11 +44,19 @@
       clear: both;
     }
 
-    label, button {
-        color: #FF9900;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 20px;
-        padding: 10px;
+    label{
+      color: #FF9900;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      padding: 10px;
+    }
+
+    button {
+      color: #232F3E;
+      font-size: 13px;
+      padding: 10px;
+      width: 100px;
+      height: 40px;
     }
 
     input, select {
@@ -55,82 +64,136 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 15px;
       padding: 10px;
+      width: 200px;
+      height: 50px;
     }
 
+    .input{
+      padding-top: 100px;
+      padding-left: 250px;
+      padding-right: 250px;
+    }
 
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-    </style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    footer{
+      border-top: 3px solid #FF9900;
+      background-color: #232F3E;
+      padding: 15px;
+      color: white;
+      font-family: Arial;
+    }
+
+  </style>
 </head>
 
 
 <body>
-  <div class="header">
-    <h1> Currency Exchange System </h1>
-  </div>
+  <div id="container-fluid" style="min-height: 100%;">
+    <div class="header">
+      <h1> Currency Exchange System </h1>
+    </div>
 
-  <div class="date-time">
-    {{date.strftime("%A, %B %d, %Y at %H:%M ") }}
-  </div>
+    <div class="date-time">
+      {{date.strftime("%A, %B %d, %Y at %H:%M ") }}
+    </div>
 
-  <div class="main" style="padding-top: 40px;">
-    <div class="column">
-      <div class="input" style="padding-left: 100px; padding-top: 75px;">
-        <form>
-        <label for="fromCurrency">Currency from:</label>
+    <div class="main" style="padding-top: 40px;">
+      <form>
+        <div class="input">
 
-  			<select id="fromCurrency" name="FromCurrency">
-  				<option value="USD">US Dollar</option>
-  				<option value="EUR">Euro</option>
-  				<option value="JPY">Japanese Yen</option>
-  				<option value="GBP">Pound Sterling</option>
-  				<option value="AUD">Australian Dollar</option>
-  				<option value="CAD">Canadian Dollar</option>
-  				<option value="CHF">Swiss Franc</option>
-  				<option value="CNY">Renminbi</option>
-  				<option value="HKD">Hong Kong Dollar</option>
-  				<option value="NZD">New Zealand Dollar</option>
-  			</select>
+          <div class="column">
 
-      <!--  <label>Amount from:</label> -->
-        <input type="number" placeholder="Amount" id="fromAmount" >
+            <table>
+              <tr>
+                <td><label for="fromCurrency">Currency from:</label></td>
+                <td>
+                  <select id="fromCurrency" name="FromCurrency">
+            				<option value="USD">US Dollar</option>
+            				<option value="EUR">Euro</option>
+            				<option value="JPY">Japanese Yen</option>
+            				<option value="GBP">Pound Sterling</option>
+            				<option value="AUD">Australian Dollar</option>
+            				<option value="CAD">Canadian Dollar</option>
+            				<option value="CHF">Swiss Franc</option>
+            				<option value="CNY">Renminbi</option>
+            				<option value="HKD">Hong Kong Dollar</option>
+            				<option value="NZD">New Zealand Dollar</option>
+            			</select>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="number" placeholder="Amount" id="fromAmount" ></td>
+              </tr>
+            </table>
+          </div>
 
-        <br><br>
+          <div class="column">
+            <table class="center">
+              <tr>
+                <td><label for="toCurrency">Currency to:</label></td>
+                <td>
+                  <select id="toCurrency" name="ToCurrency">
+            				<option value="USD">US Dollar</option>
+            				<option value="EUR">Euro</option>
+            				<option value="JPY">Japanese Yen</option>
+            				<option value="GBP">Pound Sterling</option>
+            				<option value="AUD">Australian Dollar</option>
+            				<option value="CAD">Canadian Dollar</option>
+            				<option value="CHF">Swiss Franc</option>
+            				<option value="CNY">Renminbi</option>
+            				<option value="HKD">Hong Kong Dollar</option>
+            				<option value="NZD">New Zealand Dollar</option>
+            			</select>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input type="number" placeholder="Converted Amount"
+                  id="toAmount" readonly style="outline: none;"></td>
+              </tr>
+            </table>
+          </div>
 
-        <label for="toCurrency">Currency to:</label>
+        	<br><br>
 
-  			<select id="toCurrency" name="ToCurrency">
-  				<option value="USD">US Dollar</option>
-  				<option value="EUR">Euro</option>
-  				<option value="JPY">Japanese Yen</option>
-  				<option value="GBP">Pound Sterling</option>
-  				<option value="AUD">Australian Dollar</option>
-  				<option value="CAD">Canadian Dollar</option>
-  				<option value="CHF">Swiss Franc</option>
-  				<option value="CNY">Renminbi</option>
-  				<option value="HKD">Hong Kong Dollar</option>
-  				<option value="NZD">New Zealand Dollar</option>
-  			</select>
-
-    	<!--	<label>Amount to: </label> -->
-    		<input type="number" placeholder="Converted Amount" id="toAmount" readonly>
-
-    		<br><br>
-
-        <div style="text-align: center; padding: 10px;">
-            <!-- Need to enable the button here -->
-        <button type="button">Convert</button>
-    	  <button type="reset">Clear</button>
-      </div>
-        </form>
+          <div class="buttons" style="text-align: center; padding: inherit;">
+            <button type="button" style="padding:10px;">Convert</button>
+        	  <button type="reset">Clear</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 
-  <div class="column" style="border: 1px solid black;">
-      <h2 style="text-align: center;"> Exchange Rates Imagery? <h2>
-  </div>
+  <footer>
+      <table style="width: 100%;">
+        <tr>
+          <th>Class</th>
+          <th>Authors</th>
+        </tr>
+        <tr>
+          <td><ul style="list-style-type: none; color: #FF9900; font-size: 13px;">
+            <li>University of Maryland Global Campus</li>
+            <li>CMSC 495 6380 - Current Trends and Projects in Computer Science</li>
+            <li>Dr. Hung Dao</li>
+            <li>Spring 2022 - Session 1</li>
+          </ul></td>
+
+          <td><ul style="list-style-type: none; color: #FF9900; font-size: 13px;">
+            <li>Anand Kumar</li>
+            <li>Andrew Regal</li>
+            <li>Deidra Colquitt</li>
+            <li>Leslie Hawkins</li>
+          </ul></td>
+        </tr>
+      </table>
+  </footer>
+  
 </body>
 </html>
