@@ -16,23 +16,16 @@
       color: white;
       border-bottom: 3px solid #FF9900;
     }
-
     h1{
       font-size: 40px;
       font-family: Georgia;
       text-align: center;
       color: white;
     }
-    .date-time {
-      padding: 10px;
-      text-align: center;
-      color: black;
-    }
 
     body {
       background-color: #ffffff;
     }
-
     .column {
       float: left;
       width: 50%;
@@ -43,14 +36,12 @@
       display: table;
       clear: both;
     }
-
     label{
       color: #FF9900;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 20px;
       padding: 10px;
     }
-
     button {
       color: #232F3E;
       font-size: 13px;
@@ -58,7 +49,6 @@
       width: 100px;
       height: 40px;
     }
-
     input, select {
       color: #232F3E;
       font-family: Arial, Helvetica, sans-serif;
@@ -67,17 +57,23 @@
       width: 200px;
       height: 50px;
     }
-
     .input{
-      padding-top: 100px;
       padding-left: 250px;
       padding-right: 250px;
     }
-
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
+    }
+
+    .alexa-container {
+      padding-top: 25px;
+      padding-left: 300px;
+      padding-right: 300px;
+    }
+    h2 {
+      font-family: Georgia;
     }
 
     footer{
@@ -88,7 +84,7 @@
       font-family: Arial;
     }
 
-  </style>
+    </style>
 </head>
 
 
@@ -98,11 +94,7 @@
       <h1> Currency Exchange System </h1>
     </div>
 
-    <div class="date-time">
-      {{date.strftime("%A, %B %d, %Y at %H:%M ") }}
-    </div>
-
-    <div class="main" style="padding-top: 40px;">
+    <div class="main" style="padding-top: 50px; padding-bottom: 50px; border-bottom: 3px solid #FF9900;">
       <form>
         <div class="input">
 
@@ -169,6 +161,34 @@
         </div>
       </form>
     </div>
+
+    <div class="alexa-container" >
+      <h2>Alexa Skill</h2>
+      <p>Users can use the Currency Exchange System on Amazon's Alexa Echo or
+        phone application via the Alexa Skill: Group 4 Currency Converter.
+      </p>
+      <p>Once the Alexa Skill has been enabled try making a currency conversion
+        request by uttering the phrase:
+      </p>
+      <p style="text-align: center;">
+        "Alexa, ask Group 4 C C to convert AMOUNT from CURRENCY to CURRENCY".
+      </p>
+
+      <div style="padding-top: 20px;">
+        <p><strong>Examples:</strong></p>
+        <div class="examples" style="padding-left:50px;">
+          <p>
+            "Alexa, ask Group 4 C C to convert 20 from USD to EUR".
+          </p>
+          <p>
+            "Alexa, ask Group 4 C C to convert 5001 from JPY to CAD".
+          </p>
+          <p>
+            "Alexa, ask Group 4 C C to convert 143 from CHF to SEK".
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <footer>
@@ -194,6 +214,5 @@
         </tr>
       </table>
   </footer>
-  
 </body>
 </html>
