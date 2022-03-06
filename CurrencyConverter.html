@@ -16,16 +16,23 @@
       color: white;
       border-bottom: 3px solid #FF9900;
     }
+
     h1{
       font-size: 40px;
       font-family: Georgia;
       text-align: center;
       color: white;
     }
+    .date-time {
+      padding: 10px;
+      text-align: center;
+      color: black;
+    }
 
     body {
       background-color: #ffffff;
     }
+
     .column {
       float: left;
       width: 50%;
@@ -36,12 +43,14 @@
       display: table;
       clear: both;
     }
+
     label{
       color: #FF9900;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 20px;
       padding: 10px;
     }
+
     button {
       color: #232F3E;
       font-size: 13px;
@@ -49,6 +58,7 @@
       width: 100px;
       height: 40px;
     }
+
     input, select {
       color: #232F3E;
       font-family: Arial, Helvetica, sans-serif;
@@ -57,23 +67,17 @@
       width: 200px;
       height: 50px;
     }
+
     .input{
+      padding-top: 100px;
       padding-left: 250px;
       padding-right: 250px;
     }
+
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
-    }
-
-    .alexa-container {
-      padding-top: 25px;
-      padding-left: 300px;
-      padding-right: 300px;
-    }
-    h2 {
-      font-family: Georgia;
     }
 
     footer{
@@ -84,7 +88,68 @@
       font-family: Arial;
     }
 
-    </style>
+  </style>
+  
+  <script>
+  
+		function inputTest(sourceCurrency,targetCurrency,sourceAmount) {
+			errorText = "";
+			document.getElementById("displayErrorText").innerHTML = errorText;
+			if (sourceAmount <= 0) {
+				errorText = "Please enter a valid amount.";
+				document.getElementById("displayErrorText").innerHTML = errorText;	
+			}
+			else {
+			callAPI(sourceCurrency,targetCurrency,sourceAmount);
+			}
+		
+		}
+		
+		
+        // define the callAPI function that takes a first name and last name as parameters
+        var callAPI = (sourceCurrency,targetCurrency,sourceAmount)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"sourceCurrency":sourceCurrency,"targetCurrency":targetCurrency,"sourceAmount":sourceAmount});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+      // This is dev URL
+      fetch("https://qw5jb2b2e1.execute-api.ap-northeast-1.amazonaws.com/dev", requestOptions)
+			
+			// This is PROD URL, still undergoing testing
+			//fetch("https://6hf24jz48a.execute-api.ap-northeast-1.amazonaws.com/Prod", requestOptions)
+            .then(response => response.text())
+            .then(result => appendData(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+		
+		function appendData(result) {
+			//The parsed JSON result is passed to the appendData function and then shown in the box.
+            var mainContainer = document.getElementById("toAmount");
+			document.getElementById("toAmount").value = result;
+        }
+		
+		function getDateAndTime() {
+			// This is done to display the date and time properly on the website
+			var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+			var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+			var currentInfo = new Date();
+			var dateTime = weekdays[currentInfo.getDay()] + " " + months[currentInfo.getMonth()] + " " + currentInfo.getDate() + ", " + currentInfo.getFullYear() + " at " + currentInfo.getHours() + ":" + (currentInfo.getMinutes()<10?'0':'') + currentInfo.getMinutes();
+			var timeContainer = document.getElementById("displayDateTime");
+			var addDateTime = document.createElement("div");
+			addDateTime.innerHTML = dateTime;
+			timeContainer.appendChild(addDateTime);
+		}
+		window.onload = getDateAndTime;
+    </script>
 </head>
 
 
@@ -94,7 +159,10 @@
       <h1> Currency Exchange System </h1>
     </div>
 
-    <div class="main" style="padding-top: 50px; padding-bottom: 50px; border-bottom: 3px solid #FF9900;">
+    <div class="date-time" id="displayDateTime" type="text" onload="getDateAndTime()">
+    </div>
+
+    <div class="main" style="padding-top: 40px;">
       <form>
         <div class="input">
 
@@ -122,6 +190,13 @@
                 <td></td>
                 <td><input type="number" placeholder="Amount" id="fromAmount" ></td>
               </tr>
+			  <tr>
+				<td></td>
+				<td>
+			    <label id="displayErrorText">
+				</label>
+				</td>
+			  </tr>
             </table>
           </div>
 
@@ -155,23 +230,24 @@
         	<br><br>
 
           <div class="buttons" style="text-align: center; padding: inherit;">
-            <button type="button" style="padding:10px;">Convert</button>
-        	  <button type="reset">Clear</button>
+            <button type="button" style="padding:10px;" onclick="inputTest(document.getElementById('fromCurrency').value,document.getElementById('toCurrency').value,document.getElementById('fromAmount').value)">Convert</button>
+        	<button type="reset">Clear</button>
           </div>
         </div>
       </form>
     </div>
-
-    <div class="alexa-container" >
-      <h2>Alexa Skill</h2>
-      <p>Users can use the Currency Exchange System on Amazon's Alexa Echo or
-        phone application via the Alexa Skill: Group 4 Currency Converter.
-      </p>
-      <p>Once the Alexa Skill has been enabled try making a currency conversion
-        request by uttering the phrase:
+  </div>
+  
+  <div class="alexa-container" >
+	<h2>Alexa Skill</h2>
+	  <p>Users can use the Currency Exchange System on Amazon's Alexa Echo or
+      phone application via the Alexa Skill: Group 4 Currency Converter.
+	  </p>
+	  <p>Once the Alexa Skill has been enabled try making a currency conversion
+	  request by uttering the phrase:
       </p>
       <p style="text-align: center;">
-        "Alexa, ask Group 4 C C to convert AMOUNT from CURRENCY to CURRENCY".
+      "Alexa, ask Group 4 C C to convert AMOUNT from CURRENCY to CURRENCY".
       </p>
 
       <div style="padding-top: 20px;">
@@ -214,5 +290,6 @@
         </tr>
       </table>
   </footer>
+  
 </body>
 </html>
